@@ -1,6 +1,9 @@
 import { config } from "dotenv";
 import { z } from "zod";
 
+// Load .env files if they exist
+// In Netlify deployment, environment variables are already injected
+// so this won't find .env files but won't fail either
 config();
 
 const EnvSchema = z.object({
