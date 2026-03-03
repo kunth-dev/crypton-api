@@ -3,7 +3,7 @@ import serverless from "serverless-http";
 import app from "../../src/app.js";
 
 // Create serverless handler from Express app
-const handler = serverless(app);
+const serverlessHandler = serverless(app);
 
 interface ServerlessResponse {
   statusCode: number;
@@ -12,7 +12,7 @@ interface ServerlessResponse {
   isBase64Encoded?: boolean;
 }
 
-export default async (req: Request, context: Context) => {
+export default async function handler(req: Request, context: Context) {
   try {
     // Convert Netlify Request to Node.js-compatible format for serverless-http
     const url = new URL(req.url);
@@ -41,7 +41,7 @@ export default async (req: Request, context: Context) => {
     };
 
     // Call the serverless handler
-    const result = await handler(event, lambdaContext) as ServerlessResponse;
+    const result = await serverlessHandler(event, lambdaContext) as ServerlessResponse;
 
     // Convert response back to Netlify format
     return new Response(result.body, {
@@ -63,7 +63,7 @@ export default async (req: Request, context: Context) => {
       },
     });
   }
-};
+}
 
 export const config: Config = {
   path: "/api/*",

@@ -7,10 +7,6 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-[dev]
-  command = "yarn dev"
-  port = 3001
-
 # Environment variables for local development
 [context.dev.environment]
   NODE_ENV = "development"
