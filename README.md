@@ -1,10 +1,9 @@
-# Crypton Telegram Bot
+# Crypton API
 
-A comprehensive Telegram bot for cryptocurrency trading using external REST API integration. This bot provides both Telegram commands and REST API endpoints for automated trading operations, perfect for n8n automation workflows.
+A comprehensive bot for cryptocurrency trading using external REST API integration. This bot provides REST API endpoints for automated trading operations, perfect for n8n automation workflows.
 
 ## 🚀 Features
 
-- **Telegram Bot Interface**: Interactive commands for trading operations
 - **REST API**: Complete API for external integrations (n8n, automation tools)
 - **Crypto Trading**: Full trading functionality via external crypto API
 - **Domain Whitelist**: Security through domain-based access control
@@ -15,7 +14,6 @@ A comprehensive Telegram bot for cryptocurrency trading using external REST API 
 ## 🛠 Technologies
 
 - **Backend**: Express.js with TypeScript
-- **Bot Framework**: grammY (modern Telegram bot framework)
 - **Code Quality**: Biome for linting and formatting
 - **Utilities**: es-toolkit for utility functions
 - **Package Manager**: Yarn
@@ -25,29 +23,31 @@ A comprehensive Telegram bot for cryptocurrency trading using external REST API 
 
 - Node.js 18.0.0 or higher
 - Yarn package manager
-- Telegram bot token (from [@BotFather](https://t.me/botfather))
 - Crypto trading API credentials
 
 ## 🚀 Quick Start
 
 1. **Clone and install:**
+
    ```bash
    git clone <repository-url>
-   cd crypton-tg-bot
+   cd crypton-api
    yarn install
    ```
 
 2. **Configure environment:**
+
    ```bash
    cp .env.example .env
    # Edit .env with your credentials
    ```
 
 3. **Run the bot:**
+
    ```bash
    # Development
    yarn dev
-   
+
    # Production
    yarn build && yarn start
    ```
@@ -60,7 +60,6 @@ Key environment variables:
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `TELEGRAM_BOT_TOKEN` | Bot token from @BotFather | ✅ |
 | `WEB_API_HOST` | Crypto API host | ✅ |
 | `WEB_API_ID` | API account ID | ✅ |
 | `WEB_API_KEY` | API key | ✅ |
@@ -105,7 +104,6 @@ Complete documentation is available in the `/docs` folder:
 |----------|-------------|
 | [Setup Guide](./docs/setup.md) | Installation and configuration |
 | [API Reference](./docs/api-reference.md) | REST API endpoints |
-| [Bot Commands](./docs/bot-commands.md) | Telegram commands |
 | [Deployment](./docs/deployment.md) | Production deployment |
 | [n8n Integration](./docs/n8n-integration.md) | n8n automation workflows |
 | [Security](./docs/security.md) | Security features and best practices |

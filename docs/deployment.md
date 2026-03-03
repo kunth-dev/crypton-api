@@ -1,13 +1,13 @@
 # Deployment Guide
 
-This document provides instructions for deploying the Crypton Telegram Bot in various environments.
+This document provides instructions for deploying the Crypton API in various environments.
 
 ## Prerequisites
 
 Before deploying, ensure you have:
+
 - Node.js 18.0.0 or higher installed
 - All environment variables configured
-- Telegram bot token obtained
 - Crypto API credentials ready
 - Domain whitelist configured
 
@@ -16,17 +16,20 @@ Before deploying, ensure you have:
 ### Local Development
 
 1. **Install dependencies:**
+
    ```bash
    yarn install
    ```
 
 2. **Set up environment variables:**
+
    ```bash
    cp .env.example .env
    # Edit .env with your credentials
    ```
 
 3. **Run in development mode:**
+
    ```bash
    yarn dev
    ```
@@ -40,28 +43,31 @@ The server will start with hot-reload enabled at `http://localhost:3000`.
 ### Standard Node.js Deployment
 
 1. **Build the project:**
+
    ```bash
    yarn build
    ```
 
 2. **Start the server:**
+
    ```bash
    yarn start
    ```
 
 3. **Use a process manager (recommended):**
-   
+
    **PM2:**
+
    ```bash
    # Install PM2
    npm install -g pm2
-   
+
    # Start application
-   pm2 start dist/index.js --name crypton-bot
-   
+   pm2 start dist/index.js --name crypton-api
+
    # Save PM2 configuration
    pm2 save
-   
+
    # Set up auto-restart on system reboot
    pm2 startup
    ```
@@ -71,55 +77,58 @@ The server will start with hot-reload enabled at `http://localhost:3000`.
 ### Docker Deployment
 
 1. **Create a Dockerfile:**
+
    ```dockerfile
    FROM node:18-alpine
-   
+
    # Set working directory
    WORKDIR /app
-   
+
    # Copy package files
    COPY package.json yarn.lock ./
-   
+
    # Install dependencies
    RUN yarn install --frozen-lockfile --production
-   
+
    # Copy source code
    COPY . .
-   
+
    # Build TypeScript
    RUN yarn build
-   
+
    # Expose port
    EXPOSE 3000
-   
+
    # Start application
    CMD ["yarn", "start"]
    ```
 
 2. **Build Docker image:**
+
    ```bash
-   docker build -t crypton-bot .
+   docker build -t crypton-api .
    ```
 
 3. **Run container:**
+
    ```bash
    docker run -d \
-     --name crypton-bot \
+     --name crypton-api \
      -p 3000:3000 \
      --env-file .env \
-     crypton-bot
+     crypton-api
    ```
 
 4. **Using Docker Compose:**
-   
+
    Create `docker-compose.yml`:
+
    ```yaml
    version: '3.8'
-   
    services:
-     crypton-bot:
+     crypton-api:
        build: .
-       container_name: crypton-bot
+       container_name: crypton-api
        ports:
          - "3000:3000"
        env_file:
@@ -128,8 +137,9 @@ The server will start with hot-reload enabled at `http://localhost:3000`.
        volumes:
          - ./logs:/app/logs
    ```
-   
+
    Run with:
+
    ```bash
    docker-compose up -d
    ```
@@ -141,16 +151,19 @@ The server will start with hot-reload enabled at `http://localhost:3000`.
 For serverless deployment on Netlify, see the detailed [Netlify Deployment Guide](./netlify-deployment.md).
 
 **Environment Variables Required on Netlify:**
-- `TELEGRAM_BOT_TOKEN`
+
 - `WEB_API_HOST`, `WEB_API_ID`, `WEB_API_KEY`, `WEB_API_SECRET`
+
   ```bash
   # Generate with: openssl rand -base64 32
   ```
+
  `ALLOWED_DOMAINS`
  `TRUST_PROXY=true`
  `NODE_ENV=production`
 
 **Quick steps:**
+
 ```bash
 # Install Netlify CLI
 npm install -g netlify-cli
@@ -169,45 +182,51 @@ netlify deploy --prod
 
 ### VPS/Cloud Server Deployment
 
-#### DigitalOcean, AWS EC2, Linode, etc.
+#### DigitalOcean, AWS EC2, Linode, etc
 
 1. **Connect to your server:**
+
    ```bash
    ssh user@your-server-ip
    ```
 
 2. **Install Node.js:**
+
    ```bash
    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
    sudo apt-get install -y nodejs
    ```
 
 3. **Install Yarn:**
+
    ```bash
    npm install -g yarn
    ```
 
 4. **Clone and setup:**
+
    ```bash
    git clone <your-repo-url>
-   cd crypton-tg-bot
+   cd crypton-api
    yarn install
    cp .env.example .env
    # Edit .env with your credentials
    ```
 
 5. **Build and start:**
+
    ```bash
    yarn build
-   pm2 start dist/index.js --name crypton-bot
+   pm2 start dist/index.js --name crypton-api
    ```
 
 6. **Set up Nginx reverse proxy (optional):**
+
    ```nginx
    server {
        listen 80;
        server_name your-domain.com;
-       
+
        location / {
            proxy_pass http://localhost:3000;
            proxy_http_version 1.1;
@@ -226,9 +245,6 @@ netlify deploy --prod
 Ensure these critical environment variables are set:
 
 ```bash
-# Telegram
-TELEGRAM_BOT_TOKEN=your_bot_token
-
 # Crypto API
 WEB_API_HOST=cryptottlivewebapi.free2ex.net:8443
 WEB_API_ID=your_api_id
@@ -243,7 +259,6 @@ NODE_ENV=production
 ALLOWED_DOMAINS=localhost,your-domain.com
 TRUST_PROXY=true
 ```
-```
 
 See [Configuration Guide](./setup.md#environment-variables) for complete details.
 
@@ -254,21 +269,19 @@ See [Configuration Guide](./setup.md#environment-variables) for complete details
 After deployment, verify the application is running:
 
 1. **Health endpoint:**
+
    ```bash
    curl http://your-domain.com/api/health
    ```
 
-2. **Check bot status:**
-   - Send `/status` to your Telegram bot
-   - Verify response
+2. **Monitor logs:**
 
-3. **Monitor logs:**
    ```bash
    # PM2
-   pm2 logs crypton-bot
-   
+   pm2 logs crypton-api
+
    # Docker
-   docker logs crypton-bot
+   docker logs crypton-api
    ```
 
 ---
@@ -303,23 +316,23 @@ pm2 status
 pm2 monit
 
 # View logs
-pm2 logs crypton-bot
+pm2 logs crypton-api
 
 # Restart
-pm2 restart crypton-bot
+pm2 restart crypton-api
 ```
 
 ### Docker Monitoring
 
 ```bash
 # View logs
-docker logs -f crypton-bot
+docker logs -f crypton-api
 
 # View resource usage
-docker stats crypton-bot
+docker stats crypton-api
 
 # Restart container
-docker restart crypton-bot
+docker restart crypton-api
 ```
 
 ---
@@ -349,17 +362,14 @@ pm2 save
 
 ### Common Issues
 
-**Bot not responding:**
-- Check bot token is correct
-- Verify API credentials
-- Check logs for errors
-
 **API connection issues:**
+
 - Verify domain whitelist includes your domain
 - Check network connectivity
 - Verify crypto API credentials
 
 **Port already in use:**
+
 ```bash
 # Find process using port 3000
 lsof -i :3000
@@ -380,7 +390,6 @@ kill -9 <PID>
 - [ ] Monitoring set up
 - [ ] Backup strategy in place
 - [ ] Health checks passing
-- [ ] Bot responding to commands
 - [ ] API endpoints accessible
 
 ---
@@ -396,13 +405,12 @@ kill -9 <PID>
 7. **Use domain whitelist**
 8. **Enable security logging**
 
-See [Security Guide](./security.md) for more details.
-
 ---
 
 ## Support
 
 For deployment issues:
+
 1. Check application logs
 2. Verify environment configuration
 3. Test API connectivity

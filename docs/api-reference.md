@@ -1,12 +1,10 @@
 # API Reference
 
-This document provides detailed information about the REST API endpoints available in the Crypton Telegram Bot.
+This document provides detailed information about the REST API endpoints available in the Crypton API.
 
 ## Base URL
 
-```
-http://localhost:3000/api
-```
+`http://localhost:3000/api`
 
 ## Authentication
 
@@ -15,11 +13,10 @@ http://localhost:3000/api
 All API endpoints (except `/api/health`) require Bearer token authentication.
 
 **Request Header:**
-```
-Authorization: Bearer your-token-here
-```
+`Authorization: Bearer your-token-here`
 
 **Example:**
+
 ```bash
 curl -H "Authorization: Bearer your-token-here" http://localhost:3001/api/trades
 ```
@@ -27,6 +24,7 @@ curl -H "Authorization: Bearer your-token-here" http://localhost:3001/api/trades
 **Authentication Errors:**
 
 Missing Authorization header:
+
 ```json
 {
   "success": false,
@@ -37,6 +35,7 @@ Missing Authorization header:
 ```
 
 Invalid token:
+
 ```json
 {
   "success": false,
@@ -47,6 +46,7 @@ Invalid token:
 ```
 
 Invalid scheme:
+
 ```json
 {
   "success": false,
@@ -82,6 +82,7 @@ All API responses follow this format:
 Check the health status of the bot and trading server.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -101,6 +102,7 @@ Check the health status of the bot and trading server.
 Get a list of all active trades.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -124,6 +126,7 @@ Get a list of all active trades.
 Create a new trade.
 
 **Request Body:**
+
 ```json
 {
   "symbol": "BTCUSDT",
@@ -135,6 +138,7 @@ Create a new trade.
 ```
 
 **Parameters:**
+
 - `symbol` (string, required): Trading pair symbol
 - `side` (string, required): "buy" or "sell"
 - `amount` (number, required): Trade amount
@@ -142,6 +146,7 @@ Create a new trade.
 - `type` (string, optional): "market" or "limit" (default: "limit")
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -163,9 +168,11 @@ Create a new trade.
 Get a specific trade by ID.
 
 **Parameters:**
+
 - `id` (string): Trade ID
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -187,9 +194,11 @@ Get a specific trade by ID.
 Update an existing trade.
 
 **Parameters:**
+
 - `id` (string): Trade ID
 
 **Request Body:**
+
 ```json
 {
   "amount": 0.2,
@@ -198,6 +207,7 @@ Update an existing trade.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -219,9 +229,11 @@ Update an existing trade.
 Cancel a trade.
 
 **Parameters:**
+
 - `id` (string): Trade ID
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -246,6 +258,7 @@ Cancel a trade.
 Get all available trading symbols.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -271,9 +284,11 @@ Get all available trading symbols.
 Get information for a specific symbol.
 
 **Parameters:**
+
 - `symbol` (string): Symbol name (e.g., "NEARUSDT")
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -363,6 +378,7 @@ Get real-time tick data for a specific symbol.
 Get all account assets.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -388,9 +404,11 @@ Get all account assets.
 Get account asset by currency.
 
 **Parameters:**
+
 - `currency` (string): Currency code (e.g., "BTC", "USDT")
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -410,6 +428,7 @@ Get account asset by currency.
 Get all open positions.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -435,9 +454,11 @@ Get all open positions.
 Get position by ID or symbol.
 
 **Parameters:**
+
 - `identifier` (string): Position ID or symbol name
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -463,6 +484,7 @@ Get position by ID or symbol.
 Get trading server information.
 
 **Response:**
+
 ```json
 {
   "success": true,

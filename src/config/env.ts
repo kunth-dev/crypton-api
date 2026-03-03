@@ -4,7 +4,6 @@ import { z } from "zod";
 config();
 
 const EnvSchema = z.object({
-  TELEGRAM_BOT_TOKEN: z.string().min(1, "Telegram bot token is required"),
   WEB_API_HOST: z.string().min(1, "Web API host is required"),
   WEB_API_ID: z.string().min(1, "Web API ID is required"),
   WEB_API_KEY: z.string().min(1, "Web API key is required"),

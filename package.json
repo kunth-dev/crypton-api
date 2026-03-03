@@ -1,7 +1,7 @@
 {
   "name": "crypton-api",
   "version": "1.0.0",
-  "description": "Telegram bot for crypto trading using external API",
+  "description": "API for spot trading automation",
   "main": "dist/index.js",
   "scripts": {
     "build": "echo 'Netlify functions will be built automatically by esbuild'",
@@ -22,7 +22,6 @@
     "test:coverage": "jest --coverage"
   },
   "keywords": [
-    "telegram",
     "bot",
     "crypto",
     "trading",

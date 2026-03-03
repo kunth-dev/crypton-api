@@ -1,10 +1,10 @@
 # n8n Integration Guide
 
-This guide explains how to integrate the Crypton Telegram Bot with n8n automation workflows.
+This guide explains how to integrate the Crypton API with n8n automation workflows.
 
 ## Overview
 
-The Crypton Telegram Bot is designed to work seamlessly with n8n, a powerful workflow automation tool. You can use n8n to:
+The Crypton API is designed to work seamlessly with n8n, a powerful workflow automation tool. You can use n8n to:
 
 - Automate trading based on external signals
 - Create complex trading strategies
@@ -15,7 +15,6 @@ The Crypton Telegram Bot is designed to work seamlessly with n8n, a powerful wor
 ## Prerequisites
 
 - n8n instance running (cloud or self-hosted)
-- Crypton Telegram Bot deployed and accessible
 - Bot API endpoint URL
 - Domain whitelist configured
 
@@ -26,6 +25,7 @@ The Crypton Telegram Bot is designed to work seamlessly with n8n, a powerful wor
    - For self-hosted: your server's domain or IP
 
 2. **Add to ALLOWED_DOMAINS:**
+
    ```bash
    # In your .env file
    ALLOWED_DOMAINS=localhost,your-n8n-domain.com
@@ -40,10 +40,12 @@ The Crypton Telegram Bot is designed to work seamlessly with n8n, a powerful wor
 Most n8n workflows will use the HTTP Request node to communicate with the bot's API.
 
 **Basic Configuration:**
+
 - **Method**: GET/POST/PUT/DELETE (depending on endpoint)
 - **URL**: `http://your-bot-domain:3000/api/{endpoint}`
 - **Authentication**: None (domain-based whitelist)
-- **Headers**: 
+- **Headers**:
+
   ```json
   {
     "Content-Type": "application/json"
@@ -57,11 +59,11 @@ Most n8n workflows will use the HTTP Request node to communicate with the bot's 
 Create trades automatically when receiving signals from external sources.
 
 **Workflow:**
-```
-Webhook Trigger → Process Signal → HTTP Request (Create Trade) → Send Notification
-```
+
+`Webhook Trigger → Process Signal → HTTP Request (Create Trade) → Send Notification`
 
 **HTTP Request Configuration:**
+
 ```json
 {
   "method": "POST",
@@ -82,11 +84,11 @@ Webhook Trigger → Process Signal → HTTP Request (Create Trade) → Send Noti
 Monitor your portfolio and receive alerts on specific conditions.
 
 **Workflow:**
-```
-Schedule Trigger → Get Positions → Evaluate Conditions → Send Alert
-```
+
+`Schedule Trigger → Get Positions → Evaluate Conditions → Send Alert`
 
 **Get Positions Node:**
+
 ```json
 {
   "method": "GET",
@@ -95,6 +97,7 @@ Schedule Trigger → Get Positions → Evaluate Conditions → Send Alert
 ```
 
 **Example Output Processing:**
+
 ```javascript
 // In Function node
 const positions = $input.item.json.data;
@@ -103,7 +106,7 @@ const alerts = [];
 for (const position of positions) {
   const profit = position.unrealizedPnl;
   const profitPercent = (profit / position.margin) * 100;
-  
+
   if (profitPercent > 10) {
     alerts.push({
       symbol: position.symbol,
@@ -124,15 +127,16 @@ return alerts.map(alert => ({ json: alert }));
 Automatically invest a fixed amount at regular intervals.
 
 **Workflow:**
-```
-Schedule Trigger → Get Balance → Create Market Buy → Log Trade
-```
+
+`Schedule Trigger → Get Balance → Create Market Buy → Log Trade`
 
 **Schedule Trigger:**
+
 - Run every day at 9:00 AM
 - Or every Monday at market open
 
 **Create Market Buy:**
+
 ```json
 {
   "method": "POST",
@@ -153,11 +157,11 @@ Schedule Trigger → Get Balance → Create Market Buy → Log Trade
 Monitor positions and automatically set or adjust stop-losses.
 
 **Workflow:**
-```
-Schedule Trigger → Get Positions → Calculate Stop-Loss → Update Trades
-```
+
+`Schedule Trigger → Get Positions → Calculate Stop-Loss → Update Trades`
 
 **Calculate Stop-Loss (Function Node):**
+
 ```javascript
 const positions = $input.item.json.data;
 const updates = [];
@@ -165,7 +169,7 @@ const updates = [];
 for (const position of positions) {
   const stopLossPercent = 0.05; // 5% stop-loss
   const stopPrice = position.entryPrice * (1 - stopLossPercent);
-  
+
   updates.push({
     positionId: position.id,
     stopLoss: stopPrice
@@ -182,11 +186,10 @@ return updates.map(update => ({ json: update }));
 Collect market data and analyze trends.
 
 **Workflow:**
-```
-Schedule Trigger → Get Symbols → Analyze Data → Store Results → Alert on Signals
-```
+`Schedule Trigger → Get Symbols → Analyze Data → Store Results → Alert on Signals`
 
 **Get Symbols:**
+
 ```json
 {
   "method": "GET",
@@ -310,7 +313,7 @@ Here's a complete n8n workflow JSON for automated trading based on price changes
 ### Most Used Endpoints
 
 | Endpoint | Method | Purpose |
-|----------|--------|---------|
+| ---------- | -------- | --------- |
 | `/api/health` | GET | Health check |
 | `/api/trades` | GET | List trades |
 | `/api/trades` | POST | Create trade |
@@ -349,6 +352,7 @@ return [{
 ### Retry Logic
 
 Configure HTTP Request node retry settings:
+
 - **Max Retries**: 3
 - **Retry On**: 5xx errors
 - **Retry Wait**: 1000ms
@@ -377,6 +381,7 @@ Configure HTTP Request node retry settings:
 ### Common Issues
 
 **Domain Not Whitelisted:**
+
 ```json
 {
   "success": false,
@@ -384,14 +389,17 @@ Configure HTTP Request node retry settings:
   "message": "Domain not whitelisted"
 }
 ```
+
 **Solution**: Add your n8n domain to `ALLOWED_DOMAINS`
 
 **Connection Timeout:**
+
 - Check bot is running: `curl http://your-bot-domain:3000/api/health`
 - Verify network connectivity
 - Check firewall rules
 
 **Invalid Response:**
+
 - Verify API endpoint URL
 - Check request body format
 - Review API documentation
@@ -399,12 +407,15 @@ Configure HTTP Request node retry settings:
 ## Advanced Workflows
 
 ### Multi-Exchange Arbitrage
+
 Monitor prices across exchanges and execute arbitrage trades.
 
 ### Sentiment Analysis Trading
+
 Integrate with sentiment analysis APIs to trade based on market sentiment.
 
 ### Technical Indicator Based Trading
+
 Use n8n with technical analysis libraries to create indicator-based strategies.
 
 ## Resources
@@ -417,6 +428,7 @@ Use n8n with technical analysis libraries to create indicator-based strategies.
 ## Support
 
 For n8n integration issues:
+
 1. Check n8n execution logs
 2. Verify bot API is accessible
 3. Test endpoints with curl/Postman

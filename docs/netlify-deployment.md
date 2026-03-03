@@ -1,6 +1,6 @@
 # Netlify Deployment Guide
 
-This document provides instructions for deploying the Crypton Telegram Bot to Netlify using serverless functions.
+This document provides instructions for deploying the Crypton API to Netlify using serverless functions.
 
 ## 🚀 Netlify Functions Overview
 
@@ -31,10 +31,6 @@ The following Netlify functions have been created to handle your application:
 6. **`server-info.mts`** - Server information endpoint
    - Path: `/api/server-info`
    - Handles: Fetching crypto API server information
-
-7. **`telegram-webhook.mts`** - Telegram bot webhook
-   - Path: `/webhook/telegram`
-   - Handles: Processing Telegram bot updates
 
 ## 📦 Deployment Steps
 
@@ -88,21 +84,6 @@ yarn dev:netlify
 
 This will start the Netlify dev server which emulates the serverless functions environment.
 
-## 🔗 Setting Up Telegram Webhook
-
-After deploying, you'll need to set up the Telegram webhook to point to your Netlify function:
-
-```bash
-curl -X POST "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook" \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://your-site-name.netlify.app/webhook/telegram"}'
-```
-
-Replace:
-
-- `<YOUR_BOT_TOKEN>` with your actual Telegram bot token
-- `your-site-name.netlify.app` with your actual Netlify domain
-
 ## 📋 Available Endpoints
 
 After deployment, your API will be available at:
@@ -113,7 +94,6 @@ After deployment, your API will be available at:
 - `https://your-site.netlify.app/api/symbols` - Trading symbols
 - `https://your-site.netlify.app/api/trades` - Trading data
 - `https://your-site.netlify.app/api/server-info` - Server information
-- `https://your-site.netlify.app/webhook/telegram` - Telegram webhook
 
 ## 🛠️ Configuration Files
 

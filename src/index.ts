@@ -1,5 +1,4 @@
 import "./config/env.js"; // Load environment variables first
-import { telegramBot } from "./bot/telegramBot.js";
 import { env } from "./config/env.js";
 
 // Graceful shutdown handler
@@ -7,10 +6,6 @@ const shutdown = async (signal: string): Promise<void> => {
   console.log(`\n🛑 Received ${signal}. Starting graceful shutdown...`);
 
   try {
-    // Stop Telegram bot
-    await telegramBot.stop();
-    console.log("✅ Telegram bot stopped");
-
     console.log("🎯 Graceful shutdown completed");
     process.exit(0);
   } catch (error) {
@@ -37,15 +32,11 @@ process.on("unhandledRejection", (reason, promise) => {
 // Start the application
 const startApp = async (): Promise<void> => {
   try {
-    console.log("🚀 Starting Crypton Telegram Bot...");
+    console.log("🚀 Starting Crypton API...");
     console.log(`📊 Environment: ${env.NODE_ENV}`);
     console.log(`🌐 Port: ${env.PORT}`);
 
-    // Start Telegram bot
-    await telegramBot.start();
-
     console.log("✅ All services started successfully!");
-    console.log("🤖 Bot is ready to receive commands");
   } catch (error) {
     console.error("💥 Failed to start application:", error);
     process.exit(1);
