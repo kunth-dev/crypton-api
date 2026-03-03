@@ -1,7 +1,8 @@
 node_modules/
 dist/
 .env
-.env.local
+.env.development
+.env.production
 *.log
 *.tgz
 *.tar.gz
