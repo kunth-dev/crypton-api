@@ -215,19 +215,6 @@ function validateBearerAuth(authHeader: string | undefined, path: string): Beare
 }
 
 /**
- * Gets the real client IP address from the request
- *
- * Extracts the client IP address, using the connection's remote address
- * as the source. Express's req.ip is used as fallback.
- *
- * @param req - Express request object
- * @returns The client IP address
- */
-function getClientIP(req: Request): string {
-  return req.ip || req.connection.remoteAddress || "unknown";
-}
-
-/**
  * Bearer Authentication Middleware
  *
  * Express middleware that enforces Bearer token authentication for API endpoints.
