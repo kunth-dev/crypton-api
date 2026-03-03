@@ -476,16 +476,6 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.25.10.tgz#e4b3e255a1b4aea84f6e1d2ae0b73f826c3785bd"
   integrity sha512-9KpxSVFCu0iK1owoez6aC/s/EdUQLDN3adTxGCqxMVhrPDj6bt5dbrHDXUuq+Bs2vATFBBrQS5vdQ/Ed2P+nbw==
 
-"@grammyjs/conversations@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@grammyjs/conversations/-/conversations-2.1.0.tgz#e9482565a0f6e77f18391d1eea6350a42bbbf145"
-  integrity sha512-nYoHwFyXcQ2lkQejKReoINknkgFjeIZhyJNMBwHng5UHO/ewHKs1dV2XVaLrKkHTZ1gCZ+dKkjEp26wwHyQeGg==
-
-"@grammyjs/types@3.22.1":
-  version "3.22.1"
-  resolved "https://registry.yarnpkg.com/@grammyjs/types/-/types-3.22.1.tgz#7c6f2b541f10af06a19cea6d35d0bbf18ea44d20"
-  integrity sha512-QJX0Y8lpjE+/nuTKGmxybKmvdrLHV7gqbhI/UXoWlJLWtowbwk+oW+ngfHKwegD+ewL2SX8+tQo/1E14Ma0qlw==
-
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@isaacs/cliui/-/cliui-8.0.2.tgz#b37667b7bc181c168782259bab42474fbf52b550"
@@ -2002,16 +1992,6 @@ graceful-fs@^4.2.11:
   version "4.2.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
-
-grammy@^1.23.0:
-  version "1.38.2"
-  resolved "https://registry.yarnpkg.com/grammy/-/grammy-1.38.2.tgz#c0f80e6f1def6cfe6480d78bf9218f3e3f2a0ef0"
-  integrity sha512-11O8rA3kt54Avk6cIyqdXFphkq1fbFz9Vh8hbbj8vid0VqJbZ4Yz2fpqDeaDONxnX3h9NdE/JGMk7VHVtmwKuQ==
-  dependencies:
-    "@grammyjs/types" "3.22.1"
-    abort-controller "^3.0.0"
-    debug "^4.3.4"
-    node-fetch "^2.7.0"
 
 handlebars@^4.7.8:
   version "4.7.8"
