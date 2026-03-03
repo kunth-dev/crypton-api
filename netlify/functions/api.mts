@@ -1,10 +1,17 @@
 import type { Context, Config } from "@netlify/functions";
+import dotenv from "dotenv";
 import serverless from "serverless-http";
-import app from "../../src/app.js";
 
-// Ensure environment variables are loaded (Netlify injects them automatically)
-// This import ensures the env config is initialized
-import "../../src/config/env.js";
+// Load .env files FIRST (Netlify dev doesn't auto-inject .env.development)
+dotenv.config({ path: ".env.development" });
+
+console.log("=== Function Initialization ===");
+console.log("BEARER_TOKENS:", process.env.BEARER_TOKENS ? "Set" : "Not set");
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("WEB_API_HOST:", process.env.WEB_API_HOST ? "Set" : "Not set");
+console.log("===============================");
+
+import app from "../../src/app.js";
 
 // Create serverless handler from Express app
 const serverlessHandler = serverless(app);
