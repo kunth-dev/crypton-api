@@ -1,11 +1,14 @@
 import type { Context, Config } from "@netlify/functions";
-import dotenv from "dotenv";
 import serverless from "serverless-http";
 
-// Load .env files FIRST (Netlify dev doesn't auto-inject .env.development)
-dotenv.config({ path: ".env.development" });
+// For local dev only: load .env files (Netlify production uses injected env vars)
+if (process.env.NETLIFY_DEV === "true") {
+  const { config } = await import("dotenv");
+  config({ path: ".env.development" });
+}
 
 console.log("=== Function Initialization ===");
+console.log("NETLIFY_DEV:", process.env.NETLIFY_DEV);
 console.log("BEARER_TOKENS:", process.env.BEARER_TOKENS ? "Set" : "Not set");
 console.log("NODE_ENV:", process.env.NODE_ENV);
 console.log("WEB_API_HOST:", process.env.WEB_API_HOST ? "Set" : "Not set");
