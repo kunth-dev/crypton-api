@@ -84,10 +84,10 @@ export class CryptoApiClient {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
         const status = axiosError.response?.status || 500;
-        const errorData = axiosError.response?.data as { message?: string; error?: string } | null;
+        const errorData = axiosError.response?.data as { message?: string; error?: string } | string | null;
 
         throw new AppError(
-          errorData?.message || errorData?.error || axiosError.message || "API request failed",
+          typeof errorData === "string" ? errorData : errorData?.message || errorData?.error || axiosError.message || "API request failed",
           status,
         );
       }
